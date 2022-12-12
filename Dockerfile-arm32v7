@@ -15,16 +15,16 @@ RUN apk add --no-cache
     py3-pip
 RUN ln -sf python3 /usr/bin/python  
 
-RUN python3 -m ensurepip
+RUN python3 -m ensurepip --upgrade
 RUN pip3 install --no-cache --upgrade      
-    python3-can \
-    python3-influxdb \
-    python3-serial \
-    python3-mysqldb \
-    python3-paho-mqtt \
-    python3-pika \
-    python3-requests \
-    python3-urllib3 \
+    python-can \
+    python-influxdb \
+    python-serial \
+    python-mysqldb \
+    python-paho-mqtt \
+    python-pika \
+    python-requests \
+    python-urllib3 
 
 # install pyHPSU
 RUN cd /opt \
