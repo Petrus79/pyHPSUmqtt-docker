@@ -1,4 +1,4 @@
-FROM arm32v7/debian:buster-slim
+FROM amd64/alpine:3.17
 
 # build ARM on AMD64
 COPY qemu-arm-static /usr/bin
@@ -7,25 +7,33 @@ COPY qemu-arm-static /usr/bin
 ENV \
     LANG="C.UTF-8"
 
+# Add tagged repos as well as the edge repo so that we can selectively install edge packages
+RUN echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.17/main" >> /etc/apk/repositories && \
+    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.17/community" >> /etc/apk/repositories && \
+    echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
+
 # install packages
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+RUN apk add --no-cache \
     ca-certificates \
     git \
     python3 \
-    python3-can \
-    python3-influxdb \
-    python3-serial \
-    python3-mysqldb \
-    python3-paho-mqtt \
-    python3-pika \
-    python3-requests \
-    python3-urllib3 \
-    && rm -rf /var/lib/apt/lists/*
+    py3-pip
+
+RUN ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip --upgrade
+RUN pip3 install --no-cache --upgrade \
+    python-can \
+    python-influxdb \
+    python-serial \
+    python-mysqldb \
+    python-paho-mqtt \
+    python-pika \
+    python-requests \
+    python-urllib3
 
 # install pyHPSU
 RUN cd /opt \
-    && git clone https://github.com/N3rdix/pyHPSUmqtt.git \
+    && git clone https://github.com/Spanni26/pyHPSUmqtt.git \
     && cd /opt/pyHPSU \
     && chmod +x install.sh \
     && sh install.sh
