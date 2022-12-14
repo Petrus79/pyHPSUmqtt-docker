@@ -2,8 +2,16 @@
 Docker container for pyHPSU with MQTT daemon, available on Docker Hub at https://hub.docker.com/r/nerdix/pyhpsu_mqtt
 
 ```
-docker pull nerdix/pyhpsu_mqtt:amd64
-docker pull nerdix/pyhpsu_mqtt:arm32v7
+$ mkdird pyHPSU
+$ docker run \
+        --name pyHPSU \
+        -v /home/pi/pyHPSU/etc:/etc/pyHPSU \
+        -d \
+        -it \
+        --network host \
+	      --restart=on-failure:5o \
+        nerdix/pyhpsu_mqtt:arm32v7
+        #OR nerdix/pyhpsu_mqtt:amd64
 ```
 
 ## HOST preparation
