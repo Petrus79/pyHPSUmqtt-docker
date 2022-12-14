@@ -2,7 +2,7 @@
 Docker container for pyHPSU with MQTT daemon, available on Docker Hub at https://hub.docker.com/r/nerdix/pyhpsu_mqtt
 
 ```
-$ mkdird pyHPSU
+$ mkdir pyHPSU
 $ docker run \
         --name pyHPSU \
         -v /home/pi/pyHPSU/etc:/etc/pyHPSU \
