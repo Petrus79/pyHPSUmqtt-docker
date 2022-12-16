@@ -46,7 +46,7 @@ RUN cd /opt \
 
 # expose volume
 VOLUME /etc/pyHPSU
-RUN ls -la /etc/pyHPSU
+
 COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 
