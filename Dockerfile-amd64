@@ -37,7 +37,7 @@ RUN pip3 install --no-cache --upgrade \
 
 # install pyHPSU
 RUN cd /opt \
-    && git clone https://github.com/N3rdix/pyHPSUmqtt.git pyHPSU\
+    && git clone https://github.com/Petrus79/pyHPSUmqtt.git pyHPSU\
     && cd /opt/pyHPSU \
     && chmod +x install.sh \
     && sh install.sh
