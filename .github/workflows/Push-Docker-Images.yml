@@ -41,11 +41,9 @@ jobs:
       - name: Build the docker images
         run: |
           docker build . --file Dockerfile-amd64 --tag petrus79/pyhpsu_mqtt:amd64
-          docker build . --file Dockerfile-arm32v7 --tag petrus79/pyhpsu_mqtt:arm32v7
           docker build . --file Dockerfile-arm64v8 --tag petrus79/pyhpsu_mqtt:arm64v8
 
       - name: Push the docker images
         run: |
           docker push petrus79/pyhpsu_mqtt:amd64
-          docker push petrus79/pyhpsu_mqtt:arm32v7
           docker push petrus79/pyhpsu_mqtt:arm64v8
