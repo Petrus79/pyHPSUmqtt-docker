@@ -38,12 +38,10 @@ jobs:
           # Raw authentication to registries, defined as YAML objects
           # registry-auth: # optional
                 
-      - name: Build the docker images
+      - name: Build the docker image
         run: |
           docker build . --file Dockerfile-amd64 --tag petrus79/pyhpsu_mqtt:amd64
-          docker build . --file Dockerfile-arm64v8 --tag petrus79/pyhpsu_mqtt:arm64v8
 
-      - name: Push the docker images
+      - name: Push the docker image
         run: |
           docker push petrus79/pyhpsu_mqtt:amd64
-          docker push petrus79/pyhpsu_mqtt:arm64v8
