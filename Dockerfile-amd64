@@ -37,7 +37,7 @@ RUN pip3 install --no-cache --upgrade \
 
 # install pyHPSU
 RUN cd /opt \
-    && git clone --single-branch --branch Reuse-HPSU-Object https://github.com/Petrus79/pyHPSUmqtt.git pyHPSU\
+    && git clone --single-branch --branch Reuse-HPSU-Object-2 https://github.com/Petrus79/pyHPSUmqtt.git pyHPSU\
     # && git clone https://github.com/Petrus79/pyHPSUmqtt.git pyHPSU\
     && cd /opt/pyHPSU \
     && chmod +x install.sh \
@@ -50,6 +50,7 @@ COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
 
 
 
