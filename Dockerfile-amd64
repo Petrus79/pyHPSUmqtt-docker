@@ -20,7 +20,9 @@ RUN apk add --no-cache \
     git \
     python3 \
     py3-pip \
-    py3-mysqlclient
+    py3-mysqlclient \
+    && python3 -m ensurepip \
+    && pip3 install --no-cache --upgrade pip setuptools wheel
 
 ENV PYTHONPATH /usr/lib/python3/dist-packages
 
@@ -29,7 +31,7 @@ ENV PYTHONPATH /usr/lib/python3/dist-packages
 # RUN pip3 install --no-cache --upgrade pip setuptools
 RUN pip3 install --no-cache --upgrade \
     # wheel==0.38.4 \
-    wheel==0.45.1 \
+    # wheel==0.45.1 \
     # python-can==4.2.0 \
     python-can==4.6.1 \
     # influxdb==5.3.1 \
@@ -60,6 +62,7 @@ COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
 
 
 
