@@ -14,16 +14,17 @@ RUN echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.20/main" >> /etc/apk/rep
     echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 
 # install packages
-RUN apk add --no-cache \
+# RUN apk add --no-cache \
+RUN apk update && apk add --no-cache \
     ca-certificates \
     curl \
     git \
     python3 \
     py3-pip \
     py3-mysqlclient \
-    bash \
-    && python3 -m ensurepip \
-    && pip3 install --no-cache --upgrade pip setuptools wheel
+    bash
+
+RUN pip3 install --no-cache --upgrade pip setuptools wheel
 
 ENV PYTHONPATH /usr/lib/python3/dist-packages
 
@@ -69,6 +70,7 @@ COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
 
 
 
