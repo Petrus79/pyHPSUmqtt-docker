@@ -1,4 +1,5 @@
-FROM amd64/alpine:3.17
+# FROM amd64/alpine:3.17
+FROM amd64/alpine:3.30
 WORKDIR /
 
 # set variables and locales
@@ -6,8 +7,10 @@ ENV \
     LANG="C.UTF-8"
 
 # Add tagged repos as well as the edge repo so that we can selectively install edge packages
-RUN echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.17/main" >> /etc/apk/repositories && \
-    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.17/community" >> /etc/apk/repositories && \
+# RUN echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.17/main" >> /etc/apk/repositories && \
+RUN echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.20/main" >> /etc/apk/repositories && \
+    # echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.17/community" >> /etc/apk/repositories && \
+    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.20/community" >> /etc/apk/repositories && \
     echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 
 # install packages
@@ -57,6 +60,7 @@ COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
 
 
 
