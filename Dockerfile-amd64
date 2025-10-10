@@ -1,5 +1,5 @@
 # FROM amd64/alpine:3.17
-FROM amd64/alpine:3.30
+FROM amd64/alpine:3.20
 WORKDIR /
 
 # set variables and locales
@@ -60,6 +60,7 @@ COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
 
 
 
