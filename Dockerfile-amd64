@@ -23,7 +23,7 @@ RUN apk update && apk add --no-cache \
     py3-pip \
     py3-mysqlclient \
     bash \
-    python3-venv
+    # python3-venv
 
 # Create a Python virtual environment at /opt/venv
 RUN python3 -m venv /opt/venv
@@ -57,6 +57,7 @@ COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
 
 
 
