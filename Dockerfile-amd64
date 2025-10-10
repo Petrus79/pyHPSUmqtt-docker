@@ -21,10 +21,17 @@ RUN apk add --no-cache \
     python3 \
     py3-pip \
     py3-mysqlclient \
+    bash \
     && python3 -m ensurepip \
     && pip3 install --no-cache --upgrade pip setuptools wheel
 
 ENV PYTHONPATH /usr/lib/python3/dist-packages
+
+# create and activate a virtual environment
+RUN python3 -m venv /opt/venv
+
+# Ensure scripts inside the venv are runnable
+ENV PATH="/opt/venv/bin:$PATH"
 
 #RUN ln -sf python3 /usr/bin/python
 # RUN python3 -m ensurepip --upgrade
@@ -62,6 +69,7 @@ COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
 
 
 
