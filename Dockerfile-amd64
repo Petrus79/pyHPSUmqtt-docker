@@ -41,8 +41,8 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # install pyHPSU
 RUN cd /opt \
-    && git clone --single-branch --branch Pahoo-MQTT-Update-to-V2 https://github.com/Petrus79/pyHPSUmqtt.git pyHPSU\
-    # && git clone https://github.com/Petrus79/pyHPSUmqtt.git pyHPSU\
+    # && git clone --single-branch --branch Pahoo-MQTT-Update-to-V2 https://github.com/Petrus79/pyHPSUmqtt.git pyHPSU\
+    && git clone https://github.com/Petrus79/pyHPSUmqtt.git pyHPSU\
     && cd /opt/pyHPSU \
     && chmod +x install.sh \
     && sh install.sh
@@ -57,3 +57,4 @@ COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
