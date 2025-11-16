@@ -46,7 +46,7 @@ RUN cd /opt \
     && sh install.sh
 
 # Set PYTHONPATH so the HPSU module is discoverable
-ENV PYTHONPATH="/opt/pyHPSU:$PYTHONPATH"
+ENV PYTHONPATH="/opt/pyHPSU:${PYTHONPATH:-}"
 
 # expose volume
 VOLUME /etc/pyHPSU
@@ -55,3 +55,4 @@ COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
