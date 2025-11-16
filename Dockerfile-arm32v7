@@ -7,9 +7,6 @@ FROM arm32v7/alpine:3.20
 ENV \
     LANG="C.UTF-8"
 
-ADD hooks/qemu-3.0.0+resin-arm.tar.gz .
-RUN mv qemu-3.0.0+resin-arm/qemu-arm-static /usr/bin
-
 # Add tagged repos as well as the edge repo so that we can selectively install edge packages
 RUN echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.20/main" >> /etc/apk/repositories && \
     echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.20/community" >> /etc/apk/repositories && \
@@ -21,7 +18,7 @@ RUN apk update && apk add --no-cache \
     ca-certificates \
     curl \
     git \
-    # build-base \
+    build-base \
     python3 \
     # python3-dev \
     py3-pip \
