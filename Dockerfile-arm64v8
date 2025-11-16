@@ -14,35 +14,43 @@ RUN echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.20/main" >> /etc/apk/rep
     echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 
 # install packages
-RUN apk add --no-cache \
+# RUN apk add --no-cache \
+RUN apk update && apk add --no-cache \
     ca-certificates \
     curl \
     git \
     python3 \
     py3-pip \
-    py3-mysqlclient
+    py3-mysqlclient \
+    bash
 
-ENV PYTHONPATH /usr/lib/python3/dist-packages
+# Create a Python virtual environment at /opt/venv
+RUN python3 -m venv /opt/venv
 
-#RUN ln -sf python3 /usr/bin/python
-RUN python3 -m ensurepip --upgrade
-RUN pip3 install --no-cache --upgrade pip setuptools
-RUN pip3 install --no-cache --upgrade \
-    wheel==0.38.4 \
-    python-can==4.1.0 \
-    influxdb==5.3.1 \
-    serial==0.0.97 \
-    paho-mqtt==1.6.1 \
-    pika==1.3.1 \
-    requests==2.28.1 \
-    urllib3==1.26.13
+# Create and activate virtual environment, then upgrade pip and install packages inside it
+RUN /opt/venv/bin/pip install --upgrade pip setuptools wheel && \
+    /opt/venv/bin/pip install \
+        python-can==4.6.1 \
+        influxdb==5.3.2 \
+        pyserial \
+        paho-mqtt==2.1.0 \
+        pika==1.3.2 \
+        requests==2.32.5 \
+        urllib3==2.5.0
+
+# Ensure scripts inside the venv are runnable
+ENV PATH="/opt/venv/bin:$PATH"
 
 # install pyHPSU
 RUN cd /opt \
+    # && git clone --single-branch --branch Fix-unknown-mode https://github.com/Petrus79/pyHPSUmqtt.git pyHPSU\
     && git clone https://github.com/Petrus79/pyHPSUmqtt.git pyHPSU\
     && cd /opt/pyHPSU \
     && chmod +x install.sh \
     && sh install.sh
+
+# Set PYTHONPATH so the HPSU module is discoverable
+ENV PYTHONPATH="/opt/pyHPSU:$PYTHONPATH"
 
 # expose volume
 VOLUME /etc/pyHPSU
@@ -51,4 +59,3 @@ COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-
