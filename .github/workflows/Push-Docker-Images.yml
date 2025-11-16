@@ -17,6 +17,21 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - name: amd64
+            platform: linux/amd64
+            dockerfile: ./Dockerfile-amd64
+            tag-suffix: amd64
+          - name: arm32v7
+            platform: linux/arm/v7
+            dockerfile: ./Dockerfile-arm32v7
+            tag-suffix: arm32v7
+          - name: arm64v8
+            platform: linux/arm64
+            dockerfile: ./Dockerfile-arm64v8
+            tag-suffix: arm64v8
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -73,7 +88,7 @@ jobs:
           # Build's context is the set of files located in the specified PATH or URL
           context: .
           # Path to the Dockerfile
-          file: ./Dockerfile-amd64
+          file: ${{ matrix.arch.dockerfile }}
           # List of metadata for an image
           # labels: # optional
           # Load is a shorthand for --output=type=docker
@@ -87,7 +102,7 @@ jobs:
           # List of output destinations (format: type=local,dest=path)
           # outputs: # optional
           # List of target platforms for build
-          platforms: linux/amd64
+          platforms: ${{ matrix.arch.platform }}
           # Generate provenance attestation for the build (shorthand for --attest=type=provenance)
           # provenance: # optional
           # Always attempt to pull all referenced images
@@ -107,7 +122,7 @@ jobs:
           # List of SSH agent socket or keys to expose to the build
           # ssh: # optional
           # List of tags
-          tags: petrus79/pyhpsu_mqtt:latest
+          tags: petrus79/pyhpsu_mqtt:${{ matrix.arch.tag-suffix }}
           # Sets the target stage to build
           # target: # optional
           # Ulimit options (e.g., nofile=1024:1024)
