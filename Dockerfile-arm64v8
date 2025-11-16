@@ -1,4 +1,4 @@
-FROM arm64v8/alpine:3.17
+FROM arm64v8/alpine:3.20
 WORKDIR /
 
 # set variables and locales
@@ -9,8 +9,8 @@ ADD hooks/qemu-3.0.0+resin-arm.tar.gz .
 RUN mv qemu-3.0.0+resin-arm/qemu-arm-static /usr/bin
 
 # Add tagged repos as well as the edge repo so that we can selectively install edge packages
-RUN echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.17/main" >> /etc/apk/repositories && \
-    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.17/community" >> /etc/apk/repositories && \
+RUN echo "@main http://dl-cdn.alpinelinux.org/alpine/v3.20/main" >> /etc/apk/repositories && \
+    echo "@community http://dl-cdn.alpinelinux.org/alpine/v3.20/community" >> /etc/apk/repositories && \
     echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 
 # install packages
@@ -51,3 +51,4 @@ COPY entrypoint.sh /
 RUN chmod +x entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
+
