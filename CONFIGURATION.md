@@ -82,11 +82,34 @@ The GitHub Actions workflow automatically:
 
 No additional configuration is needed in the workflow file.
 
+## GitHub Secrets Configuration
+
+Before the GitHub Actions workflow can push images to Docker Hub, you must configure the following secrets in your repository:
+
+1. **Navigate to GitHub Repository Settings:**
+   - Go to your repository on GitHub
+   - Click on "Settings" → "Secrets and variables" → "Actions"
+
+2. **Add the following secrets with exact names:**
+
+   - **Secret Name:** `DOCKER_USERNAME`
+     - **Value:** Your Docker Hub username
+   
+   - **Secret Name:** `DOCKER_HUB`
+     - **Value:** Your Docker Hub personal access token or password
+     - To create a personal access token:
+       1. Go to https://hub.docker.com/settings/security
+       2. Click "New Access Token"
+       3. Give it a descriptive name (e.g., "GitHub Actions")
+       4. Copy the token and paste it as the secret value
+
+**Important:** The secret names must exactly match the names used in the workflow file:
+- `DOCKER_USERNAME` (case-sensitive)
+- `DOCKER_HUB` (case-sensitive)
+
 ## Important Notes
 
 - The `docker.config` file is used by GitHub Actions and local builds
 - Make sure to commit your `docker.config` changes to trigger rebuilds
 - Never commit secrets to the repository; use GitHub secrets for credentials
-- The Docker Hub username and password are configured via GitHub repository secrets
-  - `DOCKER_USERNAME`: Your Docker Hub username
-  - `DOCKER_HUB`: Your Docker Hub personal access token or password
+- The secrets configured in GitHub are automatically available to the workflow as `${{ secrets.DOCKER_USERNAME }}` and `${{ secrets.DOCKER_HUB }}`
