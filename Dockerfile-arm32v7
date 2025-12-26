@@ -1,4 +1,5 @@
 FROM arm32v7/alpine:3.20
+WORKDIR /
 
 # set variables and locales
 ENV \
