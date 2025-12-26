@@ -1,6 +1,9 @@
 FROM amd64/alpine:3.20
 WORKDIR /
 
+# Build arguments for configuration
+ARG PYHPSU_REPO=https://github.com/Petrus79/pyHPSUmqtt.git
+
 # set variables and locales
 ENV \
     LANG="C.UTF-8"
@@ -40,8 +43,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # install pyHPSU
 RUN cd /opt \
-    # && git clone --single-branch --branch Fix-unknown-mode https://github.com/Petrus79/pyHPSUmqtt.git pyHPSU\
-    && git clone https://github.com/Petrus79/pyHPSUmqtt.git pyHPSU\
+    && git clone ${PYHPSU_REPO} pyHPSU\
     && cd /opt/pyHPSU \
     && chmod +x install.sh \
     && sh install.sh

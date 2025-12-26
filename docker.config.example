@@ -1,0 +1,12 @@
+# Docker Build Configuration Example
+# Copy this file to docker.config and modify the values as needed
+
+# pyHPSU Repository Configuration
+# The GitHub repository URL for pyHPSU project
+# Change this to use a fork or different branch of the project
+PYHPSU_REPO=https://github.com/Petrus79/pyHPSUmqtt.git
+
+# Docker Hub Repository Configuration
+# The Docker Hub repository where images will be pushed
+# Change this to your own Docker Hub username and repository name
+DOCKER_HUB_REPO=petrus79/pyhpsu_mqtt
